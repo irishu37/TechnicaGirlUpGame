@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -17,6 +18,8 @@ public class questionBubblePopUp extends Application {
 	public void start(Stage stage) {
 		Group root = new Group();
 		Scene scene = new Scene(root, 500, 500);
+		QuestionBank qb = new QuestionBank();
+		ToggleGroup group = new ToggleGroup();
 		stage.setScene(scene);
 		stage.setTitle("");
 
@@ -31,10 +34,11 @@ public class questionBubblePopUp extends Application {
 		rectangle.setFill(null);
 
 		Text t = new Text(70, 70, "Hello this is the question?");
-		canvas.getChildren().addAll(rectangle, t);
+		canvas.getChildren().addAll(rectangle, t, vb);
 
 		for (int i = 1; i <= 4; i++) {
-			RadioButton t2 = new RadioButton("hello here is an answer");
+			RadioButton t2 = new RadioButton(qb.getQuestion(i).getAnswerChoices()[i-1]);
+			t2.setToggleGroup(group);
 			t2.relocate(70, 70 + (i * 20));
 			canvas.getChildren().addAll(t2);
 
@@ -43,9 +47,9 @@ public class questionBubblePopUp extends Application {
 		Button button = new Button("Submit");
 
 
-		vb.getChildren().add(canvas);
+		
 
-		scene.setRoot(vb);
+		scene.setRoot(canvas);
 		stage.show();
 	}
 

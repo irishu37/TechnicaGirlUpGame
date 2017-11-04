@@ -31,4 +31,8 @@ public class QuestionBank {
 	public Question getQuestion(int qNum) {
 		return questionMap.get(qNum);
 	}
+	
+	public int numQuestions() {
+		return questionMap.size();
+	}
 }
