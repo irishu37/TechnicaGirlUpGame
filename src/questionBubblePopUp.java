@@ -1,4 +1,3 @@
-import java.awt.Button;
 
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -7,6 +6,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -37,6 +37,8 @@ public class questionBubblePopUp extends Application {
 		displayQuestion(4);
 
 		Button button = new Button("Submit");
+		button.relocate(180, 180);
+		canvas.getChildren().add(button); 
 		
 		vb.getChildren().add(canvas);
 
