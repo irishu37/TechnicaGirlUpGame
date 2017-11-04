@@ -56,6 +56,22 @@ public class QuestionBank {
 				"In 2015, after Girl Up supporters raised enough funds to donate 550 bicycles to girls in two Malawi villages, "
 				+ "adolescent girls’ school attendance in those two communities improved by ____%",
 				answers, "21.4"));
+		
+		answers[0] = "400";
+		answers[1] = "250";
+		answers[2] = "350";
+		answers[3] = "175";
+		questionMap.put(8, new Question(8,
+				"In 2015, Girl Up expanded SchoolCycle to Guatemala and raised enough money for ___ bicycles.",
+				answers, "250"));
+		
+		answers[0] = "400";
+		answers[1] = "250";
+		answers[2] = "350";
+		answers[3] = "175";
+		questionMap.put(8, new Question(8,
+				"In 2015, Girl Up expanded SchoolCycle to Guatemala and raised enough money for ___ bicycles.",
+				answers, "250"));
 	}
 
 	public Question getQuestion(int qNum) {
