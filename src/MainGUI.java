@@ -11,77 +11,146 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.ArcType;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.event.*;
 
 
 
 public class MainGUI extends Application {
-
+	private boolean freeze;
 	@Override
 	public void start(Stage primaryStage) {
+		freeze = false;
 		//sky
 		FlowPane backgroundPane = new FlowPane();
 		backgroundPane.setStyle("-fx-background-color: rgb(" + 130 + "," + 207 + ", " + 255 + ");");
 		backgroundPane.setPrefSize(600, 300);
-		
-		Canvas canvas = new Canvas(600, 300);
-        GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
-        
-        Image cloud = new Image("Images/Cloud.png", 150, 100, true, true);
+
+		Canvas canvas = new Canvas(600, 400);
+		GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
+
+		Image cloud = new Image("Images/Cloud.png", 150, 100, true, true);
 		ImageView imageView = new ImageView();
-        imageView.setImage(cloud);
-        
-        
-        backgroundPane.getChildren().add(canvas);
-        
-        
+		imageView.setImage(cloud);
+
+		Image[] personAnimation = {new Image("Images/girl1.png", 100, 150, true, true), 
+				new Image("Images/girl2.png", 100, 150, true, true)};
+
+		backgroundPane.getChildren().add(canvas);
+
+
 		//grass
-		FlowPane grassPane = new FlowPane();
-		grassPane.setPrefSize(600,  100);
-		grassPane.setStyle("-fx-background-color: green;");
+		//		FlowPane grassPane = new FlowPane();
+		//		grassPane.setPrefSize(600,  100);
+		//		grassPane.setStyle("-fx-background-color: rgb(" + 111 + "," + 201 + ", " + 104 + ");");
+		//		
+		graphicsContext.setFill(Color.GREEN);
+		graphicsContext.fillRect(0, 300, 600, 100);
+		
+		graphicsContext.setFill(Color.BLACK);
+		graphicsContext.fillRect(20, 17, 560, 25);
+
+		graphicsContext.drawImage(personAnimation[0], 50, 200);
 
 		FlowPane pane = new FlowPane();
-		pane.getChildren().addAll(backgroundPane, grassPane); 
+		pane.getChildren().addAll(backgroundPane); 
 		
 		AnimationTimer animator = new AnimationTimer()
 		{
-			int[] xPositions = {600, 700, 800, 1000};
-			
+			int[] xPositions = {600, 800, 1000, 1200};
+			int[] yPositions = {5,200,100,150};
+			int obstacleX = 600;
+			int personPos = 0;
+			int timer = 0;
+			int progress = 0;
+
 			@Override
 			public void handle(long arg0) 
 			{
-				for(int i = 0; i < xPositions.length; i ++) {
-					xPositions[i] -= 3; //determines speed of clouds
-					
-					if(xPositions[i] <= -200) {
-						xPositions[i] = 600;
-					}
+				timer ++;
+				
+				if(personPos == 0 && timer % 5 == 0) {
+					personPos = 1;
+				}else if(personPos == 1 && timer % 5 == 0){
+					personPos = 0;
 				}
 				
-//				if(xPos == -200) {
-//					xPos = 600;
-//				}
-//                // UPDATE
-//				xPos--;
-                // RENDER
-				 graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-				 graphicsContext.drawImage(cloud, xPositions[0], 5);
-				 graphicsContext.drawImage(cloud, xPositions[1], 200);
-				 graphicsContext.drawImage(cloud, xPositions[2], 100);
-				 graphicsContext.drawImage(cloud, xPositions[3], 150);
+				if(timer%5==0) {
+					progress++; //maxprogress is um 554 i think 
+				}
+
+				for(int i = 0; i < xPositions.length; i ++) {
+					xPositions[i] -= 3; //determines speed of clouds
+
+					if(xPositions[i] <= -200) {
+						xPositions[i] = 600;
+						yPositions[i] = (int)(Math.random()*150);
+					}
+
+				}
+				
+				
+				
+				//clouds & person:
+				graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+				graphicsContext.drawImage(cloud, xPositions[0], yPositions[0]);
+				graphicsContext.drawImage(cloud, xPositions[1], yPositions[1]);
+				graphicsContext.drawImage(cloud, xPositions[2], yPositions[2]);
+				graphicsContext.drawImage(cloud, xPositions[3], yPositions[3]);
+				graphicsContext.setFill(Color.GREEN);
+				graphicsContext.fillRect(0, 300, 600, 100);
+				
+				
+				graphicsContext.setFill(Color.BLACK);
+				graphicsContext.fillRect(20, 17, 560, 26);
+				graphicsContext.setFill(Color.BLANCHEDALMOND);
+				graphicsContext.fillRect(23, 20, progress, 20);
+				
+				obstacleX -=3;
+				graphicsContext.setFill(Color.BLUE);
+				graphicsContext.fillOval(obstacleX, 320, 100, 25);
+				graphicsContext.setFill(Color.GRAY);
+				graphicsContext.fillArc(obstacleX + 50, 320, 100, 100, 0, Math.PI, ArcType.OPEN);
+				
+				if(obstacleX <= 50) {
+					freeze = true;
+				}
+				
+				graphicsContext.drawImage(personAnimation[personPos], 50, 200);
 			}
 		};
-		
 
+		//action listeners for key:
 		Scene scene = new Scene(pane, 600, 400);
+		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent event) {
+				if(event.getCode() == KeyCode.RIGHT && !freeze) {
+					animator.start();
+				} 
+				event.consume();
+			}
+		});
+
+		scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent event) {
+				animator.stop();
+				event.consume();
+			}
+		});
+
+
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("LEARN YO FAX");
 		primaryStage.show();
-		
-		animator.start();
 
 	}
-	
+
 	public static void main(String[] args) {
 		Application.launch(args);
 	}
