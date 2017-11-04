@@ -34,24 +34,7 @@ public class questionBubblePopUp extends Application {
 		rectangle.relocate(50, 50);
 		rectangle.setStroke(Color.BLACK);
 		rectangle.setFill(null);
-<<<<<<< HEAD
 
-		Text t = new Text(70, 70, "Hello this is the question?");
-		canvas.getChildren().addAll(rectangle, t, vb);
-
-		for (int i = 1; i <= 4; i++) {
-			RadioButton t2 = new RadioButton(qb.getQuestion(i).getAnswerChoices()[i-1]);
-			t2.setToggleGroup(group);
-			t2.relocate(70, 70 + (i * 20));
-			canvas.getChildren().addAll(t2);
-
-		}
-
-		Button button = new Button("Submit");
-
-
-		
-=======
 		canvas.getChildren().addAll(rectangle); 
 		
 		displayQuestion(4);
@@ -59,7 +42,6 @@ public class questionBubblePopUp extends Application {
 		Button button = new Button("Submit");
 		
 		vb.getChildren().add(canvas);
->>>>>>> ef4ec817145a948377d76d3e6bb62d41e9460f88
 
 		scene.setRoot(canvas);
 		stage.show();
