@@ -53,7 +53,7 @@ public class questionBubblePopUp extends Application {
 		
 		vb.getChildren().add(canvas);
 
-		scene.setRoot(canvas);
+		scene.setRoot(vb);
 		stage.show();
 	}
 	
