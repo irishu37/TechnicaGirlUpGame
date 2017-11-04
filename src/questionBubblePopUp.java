@@ -54,6 +54,7 @@ public class questionBubblePopUp extends Application {
 		canvas.getChildren().addAll(button, label);
 
 		vb.getChildren().add(canvas);
+		
 
 		scene.setRoot(vb);
 		stage.setScene(scene);
