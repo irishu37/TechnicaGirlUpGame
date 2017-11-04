@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.TreeMap;
+
 import javafx.animation.AnimationTimer;
 import javafx.application.*;
 import javafx.scene.Scene;
@@ -42,6 +46,10 @@ public class MainGUI extends Application {
 		AnimationTimer animator = new AnimationTimer()
 		{
 			int xPos = 600;
+			TreeMap<Integer, Integer> xyPos = new TreeMap<Integer, Integer>();
+			xyPos.p
+			
+			
 			@Override
 			public void handle(long arg0) 
 			{
