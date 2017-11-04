@@ -28,6 +28,8 @@ public class questionBubblePopUp extends Application {
 	public void start(Stage stage) {
 		Group root = new Group();
 		Scene scene = new Scene(root, 500, 500);
+		QuestionBank qb = new QuestionBank();
+		ToggleGroup group = new ToggleGroup();
 		stage.setScene(scene);
 		stage.setTitle("");
 
@@ -39,6 +41,7 @@ public class questionBubblePopUp extends Application {
 		rectangle.relocate(50, 50);
 		rectangle.setStroke(Color.BLACK);
 		rectangle.setFill(null);
+
 		canvas.getChildren().addAll(rectangle); 
 		
 		displayQuestion(4);
@@ -50,7 +53,7 @@ public class questionBubblePopUp extends Application {
 		
 		vb.getChildren().add(canvas);
 
-		scene.setRoot(vb);
+		scene.setRoot(canvas);
 		stage.show();
 	}
 	
