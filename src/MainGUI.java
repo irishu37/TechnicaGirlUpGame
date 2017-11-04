@@ -45,24 +45,30 @@ public class MainGUI extends Application {
 		
 		AnimationTimer animator = new AnimationTimer()
 		{
-			int xPos = 600;
-			TreeMap<Integer, Integer> xyPos = new TreeMap<Integer, Integer>();
-			xyPos.p
-			
+			int[] xPositions = {600, 700, 800, 1000};
 			
 			@Override
 			public void handle(long arg0) 
 			{
-				if(xPos == -200) {
-					xPos = 600;
+				for(int i = 0; i < xPositions.length; i ++) {
+					xPositions[i] -= 3; //determines speed of clouds
+					
+					if(xPositions[i] <= -200) {
+						xPositions[i] = 600;
+					}
 				}
-                // UPDATE
-				xPos--;
+				
+//				if(xPos == -200) {
+//					xPos = 600;
+//				}
+//                // UPDATE
+//				xPos--;
                 // RENDER
 				 graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-				 graphicsContext.drawImage(cloud, xPos, 5);
-				 graphicsContext.drawImage(cloud, xPos + 100, 200);
-				 graphicsContext.drawImage(cloud, xPos + 200, 100);
+				 graphicsContext.drawImage(cloud, xPositions[0], 5);
+				 graphicsContext.drawImage(cloud, xPositions[1], 200);
+				 graphicsContext.drawImage(cloud, xPositions[2], 100);
+				 graphicsContext.drawImage(cloud, xPositions[3], 150);
 			}
 		};
 		
