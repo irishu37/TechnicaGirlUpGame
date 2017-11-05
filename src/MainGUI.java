@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.*;
@@ -57,7 +58,9 @@ public class MainGUI extends Application {
 	}
 	
 	private Scene runMiddle() {
-		middleScreen md = new middleScreen();
+		middleScreen md = new middleScreen(e -> {
+			setState(STATE.BIKINGGAME);
+		});
 		return new Scene(md, WIDTH, HEIGHT);
 	}
 
@@ -67,7 +70,6 @@ public class MainGUI extends Application {
 	}
 
 	private Scene runMenu() {
-		
 		VBox menuPane = new VBox();
 		menuPane.setStyle("-fx-background-color: rgb(" + 255 + "," + 192 + ", " + 203 + ");");
 		menuPane.setAlignment(Pos.CENTER);

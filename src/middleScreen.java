@@ -1,3 +1,5 @@
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -12,7 +14,7 @@ import javafx.scene.text.TextAlignment;
 
 public class middleScreen extends Pane {
 
-	public middleScreen() {
+	public middleScreen(EventHandler<ActionEvent> changeState) {
 		this.setStyle("-fx-background-color: CORNFLOWERBLUE;" );
 		
 		this.setPrefSize(300, 600);
@@ -37,6 +39,7 @@ public class middleScreen extends Pane {
 		Button next = new Button("Let's Go!"); 
 		next.setFont(new Font("Berlin Sans FB", 15));
 		next.relocate(250, 350);
+		next.setOnAction(changeState);
 		
 		vbox.setPrefWidth(600);
 		vbox.setPadding(new Insets(10,10,10,10));
