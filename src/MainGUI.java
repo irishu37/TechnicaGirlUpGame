@@ -26,7 +26,7 @@ import javafx.geometry.Pos;
 public class MainGUI extends Application {
 
 	private static boolean freeze;
-	private int questionNum = 1,speed = 5,yPosition = 200,totalObstacles = 13;
+	private int questionNum = 1,speed = 5,yPosition = 200,totalObstacles = 12;
 	final static int WIDTH = 600;
 	final static int HEIGHT = 400;
 	private Stage primaryStage;
@@ -131,6 +131,7 @@ public class MainGUI extends Application {
 			speed = 2;
 			yPosition = 210;
 			totalObstacles = 5;
+			questionNum = 12; 
 			personAnimation[0] = new Image("Images/girlBike1.png", 100, 150, true, true);
 			personAnimation[1] = new Image("Images/girlBike2.png", 100, 150, true, true);
 		}
@@ -231,10 +232,12 @@ public class MainGUI extends Application {
 					graphicsContext.drawImage(new Image("Images/school.png"), obstacleX, 175);
 				}
 
-				if (obstacleX == 81) {
+				if (obstacleX == 99) {
 					setFreeze(false);
-					questionBubblePopUp question = new questionBubblePopUp(questionNum);
-					allPane.getChildren().add(question);
+					if(obstacleNum<totalObstacles) {
+						questionBubblePopUp question = new questionBubblePopUp(questionNum);
+						allPane.getChildren().add(question);
+					}
 					questionNum++;	
 				}
 
