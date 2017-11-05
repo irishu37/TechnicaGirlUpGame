@@ -1,10 +1,12 @@
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
@@ -18,12 +20,18 @@ public class questionBubblePopUp extends Pane {
 	ToggleGroup group;
 	int quesNum;
 	Label label = new Label();
+	VBox mainBox;
+	StackPane stackpane;
 
 	public questionBubblePopUp(int questionNum) {
+		stackpane = new StackPane();
+		mainBox = new VBox();
+		mainBox.setPadding(new Insets(20,20,20,20));
+		mainBox.setSpacing(10);
+		this.setPrefSize(330, 250);
+		this.getChildren().add(stackpane);
 
-		this.setPrefSize(300, 600);
-
-		Rectangle rectangle = new Rectangle(300, 300);
+		Rectangle rectangle = new Rectangle(330, 275);
 		rectangle.relocate(200, 90);
 		rectangle.setStroke(Color.BLACK);
 		rectangle.setFill(Color.WHITE);
@@ -33,23 +41,23 @@ public class questionBubblePopUp extends Pane {
 
 		Button button = new Button("Submit");
 		button.setOnAction(new ButtonHandler());
-		button.relocate(300, 225);
-		this.getChildren().addAll(button, label);
-
+		mainBox.getChildren().add(button);
+		mainBox.getChildren().add(label);
+		stackpane.relocate(225, 75);
+		stackpane.getChildren().addAll(rectangle, mainBox);
 	}
 
 	public void displayQuestion(int quesNum) {
 		group = new ToggleGroup();
 		Text t = new Text(225, 120, bank.getQuestion(quesNum).getQuestionText());
-		t.setWrappingWidth(175);
-		this.getChildren().addAll(t);
+		t.setWrappingWidth(275);
+		mainBox.getChildren().add(t);
 
 		for (int i = 1, j = 0; i <= 4; j++, i++) {
 			RadioButton t2 = new RadioButton(bank.getQuestion(quesNum).getAnswerChoices()[j]);
 			t2.setUserData(bank.getQuestion(quesNum).getAnswerChoices()[j]);
-			t2.relocate(225, 150 + (i * 20));
+			mainBox.getChildren().add(t2);
 			t2.setToggleGroup(group);
-			this.getChildren().addAll(t2);
 		}
 
 		this.quesNum = quesNum;
@@ -64,11 +72,9 @@ public class questionBubblePopUp extends Pane {
 				if (chosenAnswer.equals(bank.getQuestion(quesNum).getCorrectAnswer())) {
 					label.setText("That is correct!");
 					label.setTextFill(Color.GREEN);
-					label.relocate(305, 265);
 				} else {
 					label.setText("Incorrect. The right answer is " + bank.getQuestion(quesNum).getCorrectAnswer());
 					label.setTextFill(Color.RED);
-					label.relocate(205, 265);
 				}
 				b.setText("Close");
 			} else if (b.getText().equals("Close")) {

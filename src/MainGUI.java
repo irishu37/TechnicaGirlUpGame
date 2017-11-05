@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.*;
@@ -25,7 +26,7 @@ import javafx.geometry.Pos;
 public class MainGUI extends Application {
 
 	private static boolean freeze;
-	private int questionNum = 1;
+	private int questionNum = 1,speed = 5,yPosition = 200,totalObstacles = 13;
 	final static int WIDTH = 600;
 	final static int HEIGHT = 400;
 	private Stage primaryStage;
@@ -45,19 +46,28 @@ public class MainGUI extends Application {
 
 	private void reloadScene() {
 		Scene currentScene = new Scene(new Pane());
-		if (state == STATE.WALKINGGAME) {
+		if (state == STATE.WALKINGGAME || state == STATE.BIKINGGAME) {
 			currentScene = runGame();
 		} else if (state == STATE.MENU) {
 			currentScene = runMenu();
 		} else if(state == STATE.MIDDLE) {
 			currentScene = runMiddle();
+		} else if(state == STATE.END) {
+			currentScene = runEnd();
 		}
 		
 		primaryStage.setScene(currentScene);
 	}
 	
+	private Scene runEnd() {
+		endScreen ed = new endScreen();
+		return new Scene(ed, WIDTH, HEIGHT);
+	}
+	
 	private Scene runMiddle() {
-		middleScreen md = new middleScreen();
+		middleScreen md = new middleScreen(e -> {
+			setState(STATE.BIKINGGAME);
+		});
 		return new Scene(md, WIDTH, HEIGHT);
 	}
 
@@ -67,7 +77,6 @@ public class MainGUI extends Application {
 	}
 
 	private Scene runMenu() {
-		
 		VBox menuPane = new VBox();
 		menuPane.setStyle("-fx-background-color: rgb(" + 255 + "," + 192 + ", " + 203 + ");");
 		menuPane.setAlignment(Pos.CENTER);
@@ -90,7 +99,7 @@ public class MainGUI extends Application {
 		startButton.setAlignment(Pos.CENTER);
 		startButton.setFont(new Font("Berlin Sans FB", 30));
 		startButton.setOnAction(e -> {
-			setState(STATE.WALKINGGAME);
+			setState(STATE.WALKINGGAME); 
 		});
 
 		menuPane.getChildren().addAll(intro, girlView, startButton);
@@ -110,9 +119,21 @@ public class MainGUI extends Application {
 		Image cloud = new Image("Images/Cloud.png", 150, 100, true, true);
 		ImageView imageView = new ImageView();
 		imageView.setImage(cloud);
-
-		Image[] personAnimation = { new Image("Images/girl1.png", 100, 150, true, true),
-				new Image("Images/girl2.png", 100, 150, true, true) };
+		
+		Image[] personAnimation = new Image[2];
+		if(state == STATE.WALKINGGAME) {
+			speed = 5;
+			yPosition = 200;
+			totalObstacles = 12;
+			personAnimation[0] = new Image("Images/girl1.png", 100, 150, true, true);
+			personAnimation[1] = new Image("Images/girl2.png", 100, 150, true, true);
+		} else if (state == STATE.BIKINGGAME){
+			speed = 2;
+			yPosition = 210;
+			totalObstacles = 5;
+			personAnimation[0] = new Image("Images/girlBike1.png", 100, 150, true, true);
+			personAnimation[1] = new Image("Images/girlBike2.png", 100, 150, true, true);
+		}
 
 		backgroundPane.getChildren().add(canvas);
 
@@ -128,7 +149,7 @@ public class MainGUI extends Application {
 		graphicsContext.setFill(Color.BLACK);
 		graphicsContext.fillRect(20, 17, 560, 25);
 
-		graphicsContext.drawImage(personAnimation[0], 50, 200);
+		graphicsContext.drawImage(personAnimation[0], 50, yPosition);
 
 		StackPane allPane = new StackPane();
 		allPane.getChildren().add(backgroundPane);
@@ -142,6 +163,7 @@ public class MainGUI extends Application {
 			int timer = 0;
 			int progress = 0;
 			int randomObstacle = 0;
+			int obstacleNum = 1;
 			boolean complete = false;
 			
 			
@@ -156,7 +178,7 @@ public class MainGUI extends Application {
 				}
 
 				//change this thing for faster progress fill! 
-				if (timer % 5 == 0) {
+				if (timer % speed == 0) {
 					progress++; // maxprogress is um 554 i think
 				}
 
@@ -190,16 +212,24 @@ public class MainGUI extends Application {
 				}
 				if(progress == 554) {
 					complete = true;
-					setState(STATE.MIDDLE);
-					//the thing that happens after you win goes here....
+					if(state == STATE.WALKINGGAME) {
+						setState(STATE.MIDDLE);
+					}else if (state == STATE.BIKINGGAME) {
+						setState(STATE.END);
+					}
 				}
 
 				obstacleX -= 3;
 				if(obstacleX==-99) {
 					obstacleX = 600;
+					obstacleNum++;
 					randomObstacle = (int) (Math.random()*4);
 				}
-				graphicsContext.drawImage(obstacles.get(randomObstacle),obstacleX,250);
+				if(obstacleNum<totalObstacles) {
+					graphicsContext.drawImage(obstacles.get(randomObstacle),obstacleX,250);
+				} else {
+					graphicsContext.drawImage(new Image("Images/school.png"), obstacleX, 175);
+				}
 
 				if (obstacleX == 51) {
 					setFreeze(false);
@@ -208,7 +238,7 @@ public class MainGUI extends Application {
 					questionNum++;	
 				}
 
-				graphicsContext.drawImage(personAnimation[personPos], 50, 200);
+				graphicsContext.drawImage(personAnimation[personPos], 50, yPosition);
 			}
 		};
 
