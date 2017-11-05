@@ -83,6 +83,8 @@ public class questionBubblePopUp extends Pane {
 				b.setText("Close");
 			} else if (b.getText().equals("Close")) {
 				((StackPane) questionBubblePopUp.this.getParent()).getChildren().remove(questionBubblePopUp.this);
+				MainGUI.setFreeze(false);
+				
 			}
 
 		}

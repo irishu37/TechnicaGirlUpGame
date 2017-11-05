@@ -30,12 +30,14 @@ import javafx.geometry.Pos;
 
 public class MainGUI extends Application {
 
-	private boolean freeze;
+	private static boolean freeze;
 	private int questionNum = 1;
 	private StackPane allPane = new StackPane();
 	private boolean start;
 	final static int WIDTH = 600;
 	final static int HEIGHT = 400;
+	private ArrayList<Image> obstacles = new ArrayList<Image>();
+	private static AnimationTimer animator;
 
 	private enum STATE {
 		MENU, GAME, END
@@ -43,12 +45,22 @@ public class MainGUI extends Application {
 
 	private STATE state = STATE.MENU;
 
+	public static void setFreeze(boolean newFreeze) {
+		freeze = newFreeze;
+		animator.stop();
+	}
 	@Override
 	public void start(Stage primaryStage) {
+		//variable initialization
 		freeze = false;
+		obstacles.add(new Image("Images/puddle.png"));
+		obstacles.add(new Image("Images/MAN.png",100,150,true,true));
+		obstacles.add(new Image("Images/rock.png"));
+		obstacles.add(new Image("Images/sticks.png"));
+		
 
 //		while (state != STATE.END) {
-			if (state == STATE.GAME) {
+//			if (state == STATE.GAME) {
 				// sky
 				FlowPane backgroundPane = new FlowPane();
 				backgroundPane.setStyle("-fx-background-color: rgb(" + 130 + "," + 207 + ", " + 255 + ");");
@@ -67,13 +79,6 @@ public class MainGUI extends Application {
 				backgroundPane.getChildren().add(canvas);
 
 				GraphicsContext g = canvas.getGraphicsContext2D();
-
-				// grass
-				// FlowPane grassPane = new FlowPane();
-				// grassPane.setPrefSize(600, 100);
-				// grassPane.setStyle("-fx-background-color: rgb(" + 111 + "," + 201 + ", " +
-				// 104 + ");");
-				//
 				graphicsContext.setFill(Color.GREEN);
 				graphicsContext.fillRect(0, 300, 600, 100);
 
@@ -84,14 +89,17 @@ public class MainGUI extends Application {
 
 				allPane.getChildren().add(backgroundPane);
 
-				AnimationTimer animator = new AnimationTimer() {
+				animator = new AnimationTimer() {
 					int[] xPositions = { 600, 800, 1000, 1200 };
 					int[] yPositions = { 5, 200, 100, 150 };
 					int obstacleX = 600;
 					int personPos = 0;
 					int timer = 0;
 					int progress = 0;
-
+					int randomObstacle = 0;
+					boolean complete = false;
+					
+					
 					@Override
 					public void handle(long arg0) {
 						timer++;
@@ -102,6 +110,7 @@ public class MainGUI extends Application {
 							personPos = 0;
 						}
 
+						//change this thing for faster progress fill! 
 						if (timer % 5 == 0) {
 							progress++; // maxprogress is um 554 i think
 						}
@@ -125,20 +134,32 @@ public class MainGUI extends Application {
 						graphicsContext.setFill(Color.GREEN);
 						graphicsContext.fillRect(0, 300, 600, 100);
 
+						//progressbar
 						graphicsContext.setFill(Color.BLACK);
 						graphicsContext.fillRect(20, 17, 560, 26);
 						graphicsContext.setFill(Color.BLANCHEDALMOND);
-						graphicsContext.fillRect(23, 20, progress, 20);
+						if(!complete) {
+							graphicsContext.fillRect(23, 20, progress, 20);
+						} else {
+							graphicsContext.fillRect(23, 20, 554, 20);
+						}
+						if(progress == 554) {
+							complete = true;
+							//the thing that happens after you win goes here....
+						}
 
 						obstacleX -= 3;
-						graphicsContext.setFill(Color.BLUE);
-						graphicsContext.fillOval(obstacleX, 320, 100, 25);
-						graphicsContext.setFill(Color.GRAY);
-						graphicsContext.fillArc(obstacleX + 50, 320, 100, 100, 0, Math.PI, ArcType.OPEN);
+						if(obstacleX==-99) {
+							obstacleX = 600;
+							randomObstacle = (int) (Math.random()*4);
+						}
+						graphicsContext.drawImage(obstacles.get(randomObstacle),obstacleX,250);
 
 						if (obstacleX == 51) {
+							setFreeze(false);
 							questionBubblePopUp question = new questionBubblePopUp(questionNum);
 							allPane.getChildren().add(question);
+							questionNum++;	
 						}
 
 						graphicsContext.drawImage(personAnimation[personPos], 50, 200);
@@ -169,40 +190,40 @@ public class MainGUI extends Application {
 				primaryStage.setScene(scene);
 				primaryStage.setTitle("LEARN YO FAX");
 				primaryStage.show();
-			} else if (state == STATE.MENU) {
-				GridPane menuPane = new GridPane();
-				menuPane.setAlignment(Pos.CENTER);
-				
-				Label gameLabel = new Label("Can you help this girl");
-				Label gameLabel2 = new Label(" get to school?");
-				gameLabel.setFont(new Font("arial", 50));
-				gameLabel.setAlignment(Pos.CENTER);
-				gameLabel2.setFont(new Font("arial", 50));
-				gameLabel2.setAlignment(Pos.CENTER);
-				
-				Image girl = new Image("Images/girl1.png");
-				ImageView girlView = new ImageView();
-				girlView.setImage(girl);
-				girlView.prefWidth(20);
-				girlView.prefHeight(40);
-				
-				Button startButton = new Button("START");
-				startButton.setMinSize(70, 50);
-				startButton.setAlignment(Pos.CENTER);
-				startButton.setOnAction(e -> {
-					state = STATE.GAME;
-				});
-				
-				menuPane.add(gameLabel, 0, 0);
-				menuPane.add(gameLabel2, 0, 1);
-				menuPane.add(girlView, 0, 2);
-				menuPane.add(startButton, 0, 3);
-
-				Scene scene = new Scene(menuPane, WIDTH, HEIGHT);
-				primaryStage.setScene(scene);
-				primaryStage.setTitle("LEARN YO FAX");
-				primaryStage.show();
-			}
+	//		} else if (state == STATE.MENU) {
+//				GridPane menuPane = new GridPane();
+//				menuPane.setAlignment(Pos.CENTER);
+//				
+//				Label gameLabel = new Label("Can you help this girl");
+//				Label gameLabel2 = new Label(" get to school?");
+//				gameLabel.setFont(new Font("arial", 50));
+//				gameLabel.setAlignment(Pos.CENTER);
+//				gameLabel2.setFont(new Font("arial", 50));
+//				gameLabel2.setAlignment(Pos.CENTER);
+//				
+//				Image girl = new Image("Images/girl1.png");
+//				ImageView girlView = new ImageView();
+//				girlView.setImage(girl);
+//				girlView.prefWidth(20);
+//				girlView.prefHeight(40);
+//				
+//				Button startButton = new Button("START");
+//				startButton.setMinSize(70, 50);
+//				startButton.setAlignment(Pos.CENTER);
+//				startButton.setOnAction(e -> {
+//					state = STATE.GAME;
+//				});
+//				
+//				menuPane.add(gameLabel, 0, 0);
+//				menuPane.add(gameLabel2, 0, 1);
+//				menuPane.add(girlView, 0, 2);
+//				menuPane.add(startButton, 0, 3);
+//
+//				Scene scene = new Scene(menuPane, WIDTH, HEIGHT);
+//				primaryStage.setScene(scene);
+//				primaryStage.setTitle("LEARN YO FAX");
+//				primaryStage.show();
+//			}
 		}
 		
 //	}
