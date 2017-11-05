@@ -42,7 +42,8 @@ public class endScreen extends Pane{
 		learnMore.relocate(500, 500);
 		learnMore.setStyle("-fx-background-color: CORNFLOWERBLUE;");
 		
-		Text l = new Text ("We hope that through this game you were able to understand the influence one bicycle can have on a girl's "
+		Text l = new Text ("This time it only took you only 25 minutes to get to school. You are energized and ready for a new day!"
+				+ " We hope that through this game you were able to understand the influence one bicycle can have on a girl's "
 				+ "future. Please consider donating for a brighter future for herand to change these statistics"); 
 		l.relocate(100, 100);
 		l.setFill(Color.CORNFLOWERBLUE);
