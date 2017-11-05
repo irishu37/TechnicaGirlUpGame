@@ -22,7 +22,7 @@ public class middleScreen extends Pane {
 		l.setFill(Color.LIGHTPINK);
 		l.setWrappingWidth(500);
 		l.setFont(new Font("Berlin Sans FB", 30));
-		l.setTextAlignment(TextAlignment.CENTER); 
+		l.setTextAlignment(TextAlignment.CENTER);
 		
 		Button next = new Button("Let's Go!"); 
 		next.setFont(new Font("Berlin Sans FB", 20));
