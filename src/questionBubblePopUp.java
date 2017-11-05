@@ -51,7 +51,6 @@ public class questionBubblePopUp extends Pane {
 
 	}
 
-
 	public void displayQuestion(int quesNum) {
 		group = new ToggleGroup();
 		Text t = new Text(225, 120, bank.getQuestion(quesNum).getQuestionText());

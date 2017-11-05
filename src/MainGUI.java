@@ -1,9 +1,12 @@
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeMap;
 
 import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.*;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -17,6 +20,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.event.*;
@@ -77,7 +81,7 @@ public class MainGUI extends Application {
 			@Override
 			public void handle(long arg0) 
 			{
-				timer ++;
+				timer++;
 				
 				if(personPos == 0 && timer % 5 == 0) {
 					personPos = 1;
@@ -140,6 +144,13 @@ public class MainGUI extends Application {
 				if(event.getCode() == KeyCode.RIGHT && !freeze) {
 					animator.start();
 				} 
+				if(event.getCode() == KeyCode.UP && !freeze) {
+					for(int i = 200; i>100; i--)
+						graphicsContext.drawImage(personAnimation[0], 50, i);
+					for(int i = 100; i<=200; i++)
+						graphicsContext.drawImage(personAnimation[0], 50, i);
+
+				}
 				event.consume();
 			}
 		});
