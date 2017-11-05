@@ -1,5 +1,4 @@
 
-
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -32,7 +31,6 @@ public class questionBubblePopUp extends Pane {
 
 	public questionBubblePopUp(int questionNum) {
 
-
 		this.setPrefSize(300, 600);
 
 		Rectangle rectangle = new Rectangle(200, 200);
@@ -47,7 +45,6 @@ public class questionBubblePopUp extends Pane {
 		button.setOnAction(new ButtonHandler());
 		button.relocate(300, 225);
 		this.getChildren().addAll(button, label);
-
 
 	}
 
@@ -72,7 +69,7 @@ public class questionBubblePopUp extends Pane {
 		@Override
 		public void handle(ActionEvent e) {
 			Button b = (Button) e.getSource();
-			if(b.getText().equals("Submit")) {
+			if (b.getText().equals("Submit")) {
 				chosenAnswer = group.getSelectedToggle().getUserData().toString();
 				if (chosenAnswer.equals(bank.getQuestion(quesNum).getCorrectAnswer())) {
 					label.setText("That is correct!");
@@ -80,16 +77,15 @@ public class questionBubblePopUp extends Pane {
 					label.relocate(305, 265);
 
 				} else {
-					label.setText(
-							"Incorrect. The right answer is " + bank.getQuestion(quesNum).getCorrectAnswer());
+					label.setText("Incorrect. The right answer is " + bank.getQuestion(quesNum).getCorrectAnswer());
 					label.setTextFill(Color.RED);
 					label.relocate(205, 265);
 				}
 				b.setText("Close");
-			} else if(b.getText().equals("Close")) {
-				((StackPane)questionBubblePopUp.this.getParent()).getChildren().remove(questionBubblePopUp.this);
+			} else if (b.getText().equals("Close")) {
+				((StackPane) questionBubblePopUp.this.getParent()).getChildren().remove(questionBubblePopUp.this);
 			}
-			
+
 		}
 
 	}
