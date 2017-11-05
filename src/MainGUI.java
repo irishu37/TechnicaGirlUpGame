@@ -3,6 +3,8 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.*;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -20,6 +22,7 @@ import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.event.*;
@@ -201,10 +204,9 @@ public class MainGUI extends Application {
 				primaryStage.show();
 			}
 		}
-
 		
-
 //	}
+
 
 	public static void main(String[] args) {
 		Application.launch(args);
