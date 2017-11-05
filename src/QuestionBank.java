@@ -90,14 +90,6 @@ public class QuestionBank {
 				"Poverty, the main factor preventing girls from staying in school, is linked to what?",
 				answers, "all of the above"));
 		
-		answers = new String[4];
-		answers[0] = "a dearth of teachers";
-		answers[1] = "poor infrastructure";
-		answers[2] = "early marriage";
-		answers[3] = "all of the above";
-		questionMap.put(11, new Question(11,
-				"Poverty, the main factor preventing girls from staying in school, is linked to what?",
-				answers, "all of the above"));
 
 	}
 

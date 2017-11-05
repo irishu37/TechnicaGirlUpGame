@@ -26,7 +26,7 @@ import javafx.geometry.Pos;
 public class MainGUI extends Application {
 
 	private static boolean freeze;
-	private int questionNum = 1,speed = 5,yPosition = 200;
+	private int questionNum = 1,speed = 5,yPosition = 200,totalObstacles = 13;
 	final static int WIDTH = 600;
 	final static int HEIGHT = 400;
 	private Stage primaryStage;
@@ -117,11 +117,13 @@ public class MainGUI extends Application {
 		if(state == STATE.WALKINGGAME) {
 			speed = 5;
 			yPosition = 200;
+			totalObstacles = 12;
 			personAnimation[0] = new Image("Images/girl1.png", 100, 150, true, true);
 			personAnimation[1] = new Image("Images/girl2.png", 100, 150, true, true);
 		} else if (state == STATE.BIKINGGAME){
 			speed = 2;
 			yPosition = 210;
+			totalObstacles = 5;
 			personAnimation[0] = new Image("Images/girlBike1.png", 100, 150, true, true);
 			personAnimation[1] = new Image("Images/girlBike2.png", 100, 150, true, true);
 		}
@@ -215,18 +217,18 @@ public class MainGUI extends Application {
 					obstacleNum++;
 					randomObstacle = (int) (Math.random()*4);
 				}
-				if(obstacleNum<12) {
+				if(obstacleNum<totalObstacles) {
 					graphicsContext.drawImage(obstacles.get(randomObstacle),obstacleX,250);
 				} else {
 					graphicsContext.drawImage(new Image("Images/school.png"), obstacleX, 175);
 				}
 
-//				if (obstacleX == 51) {
-//					setFreeze(false);
-//					questionBubblePopUp question = new questionBubblePopUp(questionNum);
-//					allPane.getChildren().add(question);
-//					questionNum++;	
-//				}
+				if (obstacleX == 51) {
+					setFreeze(false);
+					questionBubblePopUp question = new questionBubblePopUp(questionNum);
+					allPane.getChildren().add(question);
+					questionNum++;	
+				}
 
 				graphicsContext.drawImage(personAnimation[personPos], 50, yPosition);
 			}
