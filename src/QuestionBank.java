@@ -90,6 +90,79 @@ public class QuestionBank {
 				"Poverty, the main factor preventing girls from staying in school, is linked to what?",
 				answers, "all of the above"));
 		
+		answers = new String[4];
+		answers[0] = "35 million";
+		answers[1] = "65 million";
+		answers[2] = "40 million";
+		answers[3] = "75 million";
+		questionMap.put(11, new Question(11,
+				"Globally, ________ girls are not in school",
+				answers, "65 million"));
+		
+		answers = new String[4];
+		answers[0] = "15 million";
+		answers[1] = "23 million";
+		answers[2] = "33 million";
+		answers[3] = "40 million";
+		questionMap.put(12, new Question(12,
+				"There are _______ fewer girls than boys in primary school ",
+				answers, "33 million"));
+		
+		answers = new String[4];
+		answers[0] = "5";
+		answers[1] = "10";
+		answers[2] = "20";
+		answers[3] = "25";
+		questionMap.put(13, new Question(13,
+				"A girl with an extra year of education can earn ___ percent more as an adult",
+				answers, "20"));
+		
+		answers = new String[4];
+		answers[0] = "20";
+		answers[1] = "30";
+		answers[2] = "40";
+		answers[3] = "50";
+		questionMap.put(14, new Question(14,
+				"A child born to a mother who can read and write is ___ percent more likely to survive past the age of 5",
+				answers, "50"));
+		
+		answers = new String[4];
+		answers[0] = "10 million";
+		answers[1] = "13 million";
+		answers[2] = "17 million";
+		answers[3] = "20 million";
+		questionMap.put(15, new Question(15,
+				"There are 31 million girls of primary school age not in school. "
+				+ "_________ of these girls will probably never attend school in their lifetimes.",
+				answers, "17 million"));
+		
+		answers = new String[4];
+		answers[0] = "$32 million";
+		answers[1] = "$67 million";
+		answers[2] = "$4.2 billion";
+		answers[3] = "$5.5 billion";
+		questionMap.put(16, new Question(16,
+				"If India enrolled 1% more girls in secondary school, their GDP would rise by _______",
+				answers, "5.5 billion"));
+		
+		answers = new String[4];
+		answers[0] = "5 million";
+		answers[1] = "9 million";
+		answers[2] = "14 million";
+		answers[3] = "18 million";
+		questionMap.put(17, new Question(17,
+				"_________ girls under 18 will be married this year",
+				answers, "14 million"));
+		
+		answers = new String[4];
+		answers[0] = "disease";
+		answers[1] = "childbirth";
+		answers[2] = "malnutrition";
+		answers[3] = "mental health and injuries";
+		questionMap.put(18, new Question(18,
+				"The #1 cause of death for girls 15-19 is _________",
+				answers, "childbirth"));
+		
 
 	}
 

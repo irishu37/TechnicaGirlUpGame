@@ -275,7 +275,7 @@ public class MainGUI extends Application {
 		obstacles.add(new Image("Images/sticks.png"));
 		
 		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle("LEARN YO FAX");
+		this.primaryStage.setTitle("Cycles for Her Future");
 		reloadScene();
 		this.primaryStage.show();
 	}
