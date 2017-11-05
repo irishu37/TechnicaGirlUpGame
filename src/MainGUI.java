@@ -231,7 +231,7 @@ public class MainGUI extends Application {
 					graphicsContext.drawImage(new Image("Images/school.png"), obstacleX, 175);
 				}
 
-				if (obstacleX == 51) {
+				if (obstacleX == 81) {
 					setFreeze(false);
 					questionBubblePopUp question = new questionBubblePopUp(questionNum);
 					allPane.getChildren().add(question);
