@@ -69,6 +69,7 @@ public class questionBubblePopUp extends Application {
 		Text t = new Text(70, 70, bank.getQuestion(quesNum).getQuestionText());
 		t.setWrappingWidth(175);
 		canvas.getChildren().addAll(t);
+		
 
 		for (int i = 1, j = 0; i <= 4; j++, i++) {
 			RadioButton t2 = new RadioButton(bank.getQuestion(quesNum).getAnswerChoices()[j]);
