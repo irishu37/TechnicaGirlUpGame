@@ -79,7 +79,6 @@ public class questionBubblePopUp extends Pane {
 					label.setText("That is correct!");
 					label.setTextFill(Color.GREEN);
 					label.relocate(305, 265);
-
 				} else {
 					label.setText(
 							"Incorrect. The right answer is " + bank.getQuestion(quesNum).getCorrectAnswer());

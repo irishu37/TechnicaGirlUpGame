@@ -72,6 +72,7 @@ public class QuestionBank {
 				"In 2015, Girl Up expanded SchoolCycle to Guatemala and raised enough money for ___ bicycles.",
 				answers, "250"));
 		
+		answers = new String[4];
 		answers[0] = "2";
 		answers[1] = "4";
 		answers[2] = "6";
@@ -80,6 +81,23 @@ public class QuestionBank {
 				"Khadijah Katete, a Malawi girl, has lived at her school for the past four years and visits home once every ___ month",
 				answers, "3"));
 		
+		answers = new String[4];
+		answers[0] = "a dearth of teachers";
+		answers[1] = "poor infrastructure";
+		answers[2] = "early marriage";
+		answers[3] = "all of the above";
+		questionMap.put(10, new Question(10,
+				"Poverty, the main factor preventing girls from staying in school, is linked to what?",
+				answers, "all of the above"));
+		
+		answers = new String[4];
+		answers[0] = "a dearth of teachers";
+		answers[1] = "poor infrastructure";
+		answers[2] = "early marriage";
+		answers[3] = "all of the above";
+		questionMap.put(11, new Question(11,
+				"Poverty, the main factor preventing girls from staying in school, is linked to what?",
+				answers, "all of the above"));
 		
 	}
 
