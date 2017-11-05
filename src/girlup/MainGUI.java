@@ -1,3 +1,4 @@
+package girlup;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeMap;
@@ -10,6 +11,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Rectangle;
@@ -21,7 +24,11 @@ import javafx.event.*;
 
 
 public class MainGUI extends Application {
+	
 	private boolean freeze;
+	private int questionNum=1; 
+	StackPane allPane = new StackPane();
+	
 	@Override
 	public void start(Stage primaryStage) {
 		freeze = false;
@@ -56,8 +63,7 @@ public class MainGUI extends Application {
 
 		graphicsContext.drawImage(personAnimation[0], 50, 200);
 
-		FlowPane pane = new FlowPane();
-		pane.getChildren().addAll(backgroundPane); 
+		allPane.getChildren().add(backgroundPane); 
 		
 		AnimationTimer animator = new AnimationTimer()
 		{
@@ -116,16 +122,18 @@ public class MainGUI extends Application {
 				graphicsContext.setFill(Color.GRAY);
 				graphicsContext.fillArc(obstacleX + 50, 320, 100, 100, 0, Math.PI, ArcType.OPEN);
 				
-				if(obstacleX <= 50) {
-					freeze = true;
+				if(obstacleX == 51) {
+					questionBubblePopUp question = new questionBubblePopUp(questionNum);
+					allPane.getChildren().add(question);
 				}
 				
 				graphicsContext.drawImage(personAnimation[personPos], 50, 200);
 			}
 		};
 
+
 		//action listeners for key:
-		Scene scene = new Scene(pane, 600, 400);
+		Scene scene = new Scene(allPane, 600, 400);
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent event) {
@@ -150,6 +158,7 @@ public class MainGUI extends Application {
 		primaryStage.show();
 
 	}
+	
 
 	public static void main(String[] args) {
 		Application.launch(args);
