@@ -52,7 +52,7 @@ public class QuestionBank {
 		questionMap.put(6, new Question(6,
 				"A prevalent challenge of girls in Malawi is the long commute to school which can exceed ___ miles in each direction",
 				answers, "10"));
-		
+
 		answers = new String[4];
 		answers[0] = "21.4";
 		answers[1] = "15.9";
@@ -60,9 +60,9 @@ public class QuestionBank {
 		answers[3] = "32.6";
 		questionMap.put(7, new Question(7,
 				"In 2015, after Girl Up supporters raised enough funds to donate 550 bicycles to girls in two Malawi villages, "
-				+ "adolescent girls’ school attendance in those two communities improved by ____%",
+						+ "adolescent girls’ school attendance in those two communities improved by ____%",
 				answers, "21.4"));
-		
+
 		answers = new String[4];
 		answers[0] = "400";
 		answers[1] = "250";
@@ -98,7 +98,7 @@ public class QuestionBank {
 		questionMap.put(11, new Question(11,
 				"Poverty, the main factor preventing girls from staying in school, is linked to what?",
 				answers, "all of the above"));
-		
+
 	}
 
 	public Question getQuestion(int qNum) {

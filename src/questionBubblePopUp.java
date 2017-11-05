@@ -23,7 +23,7 @@ public class questionBubblePopUp extends Pane {
 
 		this.setPrefSize(300, 600);
 
-		Rectangle rectangle = new Rectangle(200, 200);
+		Rectangle rectangle = new Rectangle(300, 300);
 		rectangle.relocate(200, 90);
 		rectangle.setStroke(Color.BLACK);
 		rectangle.setFill(Color.WHITE);
