@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import javafx.animation.AnimationTimer;
 import javafx.application.*;
 import javafx.scene.Scene;
@@ -11,7 +13,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.ArcType;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -23,12 +24,13 @@ import javafx.geometry.Pos;
 
 public class MainGUI extends Application {
 
-	private boolean freeze;
+	private static boolean freeze;
 	private int questionNum = 1;
 	final static int WIDTH = 600;
 	final static int HEIGHT = 400;
-	
 	private Stage primaryStage;
+	private ArrayList<Image> obstacles = new ArrayList<Image>();
+	private static AnimationTimer animator;
 
 	private enum STATE {
 		MENU, WALKINGGAME, BIKINGGAME, MIDDLE, END
@@ -57,6 +59,11 @@ public class MainGUI extends Application {
 	private Scene runMiddle() {
 		middleScreen md = new middleScreen();
 		return new Scene(md, WIDTH, HEIGHT);
+	}
+
+	public static void setFreeze(boolean newFreeze) {
+		freeze = newFreeze;
+		animator.stop();
 	}
 
 	private Scene runMenu() {
@@ -126,21 +133,20 @@ public class MainGUI extends Application {
 		StackPane allPane = new StackPane();
 		allPane.getChildren().add(backgroundPane);
 
-		AnimationTimer animator = new AnimationTimer() {
+		animator = new AnimationTimer() {
 			int[] xPositions = { 600, 800, 1000, 1200 };
 			int[] yPositions = { 5, 200, 100, 150 };
 			int obstacleX = 600;
 			int personPos = 0;
 			int timer = 0;
 			int progress = 0;
-
+			int randomObstacle = 0;
+			boolean complete = false;
+			
+			
 			@Override
 			public void handle(long arg0) {
 				timer++;
-				
-				if(progress == 554) {
-					setState(STATE.MIDDLE);
-				}
 
 				if (personPos == 0 && timer % 5 == 0) {
 					personPos = 1;
@@ -148,6 +154,7 @@ public class MainGUI extends Application {
 					personPos = 0;
 				}
 
+				//change this thing for faster progress fill! 
 				if (timer % 5 == 0) {
 					progress++; // maxprogress is um 554 i think
 				}
@@ -171,24 +178,36 @@ public class MainGUI extends Application {
 				graphicsContext.setFill(Color.GREEN);
 				graphicsContext.fillRect(0, 300, 600, 100);
 
+				//progressbar
 				graphicsContext.setFill(Color.BLACK);
 				graphicsContext.fillRect(20, 17, 560, 26);
 				graphicsContext.setFill(Color.BLANCHEDALMOND);
-				graphicsContext.fillRect(23, 20, progress, 20);
+				if(!complete) {
+					graphicsContext.fillRect(23, 20, progress, 20);
+				} else {
+					graphicsContext.fillRect(23, 20, 554, 20);
+				}
+				if(progress == 554) {
+					complete = true;
+					setState(STATE.MIDDLE);
+					//the thing that happens after you win goes here....
+				}
 
 				obstacleX -= 3;
-				graphicsContext.setFill(Color.BLUE);
-				graphicsContext.fillOval(obstacleX, 320, 100, 25);
-				graphicsContext.setFill(Color.GRAY);
-				graphicsContext.fillArc(obstacleX + 50, 320, 100, 100, 0, Math.PI, ArcType.OPEN);
+				if(obstacleX==-99) {
+					obstacleX = 600;
+					randomObstacle = (int) (Math.random()*4);
+				}
+				graphicsContext.drawImage(obstacles.get(randomObstacle),obstacleX,250);
 
 				if (obstacleX == 51) {
+					setFreeze(false);
 					questionBubblePopUp question = new questionBubblePopUp(questionNum);
 					allPane.getChildren().add(question);
+					questionNum++;	
 				}
 
 				graphicsContext.drawImage(personAnimation[personPos], 50, 200);
-
 			}
 		};
 
@@ -219,6 +238,11 @@ public class MainGUI extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		freeze = false;
+		obstacles.add(new Image("Images/puddle.png"));
+		obstacles.add(new Image("Images/MAN.png",100,150,true,true));
+		obstacles.add(new Image("Images/rock.png"));
+		obstacles.add(new Image("Images/sticks.png"));
+		
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("LEARN YO FAX");
 		reloadScene();
