@@ -73,16 +73,16 @@ public class QuestionBank {
 				answers, "250"));
 		
 		answers = new String[4];
-		answers[0] = "2";
-		answers[1] = "4";
-		answers[2] = "6";
-		answers[3] = "3";
+		answers[0] = "80 million";
+		answers[1] = "100 million";
+		answers[2] = "120 million";
+		answers[3] = "150 million";
 		questionMap.put(9, new Question(9,
-				"Khadijah Katete, a Malawi girl, has lived at her school for the past four years and visits home once every ___ month",
-				answers, "3"));
+				"In a single year, an estimated _________ girls are victims of sexual violence.",
+				answers, "150 million"));
 		
 		answers = new String[4];
-		answers[0] = "a dearth of teachers";
+		answers[0] = "a lack of teachers";
 		answers[1] = "poor infrastructure";
 		answers[2] = "early marriage";
 		answers[3] = "all of the above";
@@ -162,6 +162,27 @@ public class QuestionBank {
 		questionMap.put(18, new Question(18,
 				"The #1 cause of death for girls 15-19 is _________",
 				answers, "childbirth"));
+		
+		answers = new String[4];
+		answers[0] = "2.6 million";
+		answers[1] = "3.0 million";
+		answers[2] = "3.2 million";
+		answers[3] = "3.6 million";
+		questionMap.put(19, new Question(19,
+				"If all women in low and lower middle income countries completed secondary education, "
+				+ "___________ lives of children under five would be saved every year",
+				answers, "3.0 million"));
+		
+		answers = new String[4];
+		answers[0] = "50 percent";
+		answers[1] = "65 percent";
+		answers[2] = "70 percent";
+		answers[3] = "75 percent";
+		questionMap.put(20, new Question(20,
+				"If all women in sub-Saharan Africa completed their primary education, maternal mortality would fall by _______",
+				answers, "70 percent"));
+		
+		
 		
 
 	}
