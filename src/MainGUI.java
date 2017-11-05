@@ -132,7 +132,8 @@ public class MainGUI extends Application {
 
 		StackPane allPane = new StackPane();
 		allPane.getChildren().add(backgroundPane);
-
+		
+		
 		animator = new AnimationTimer() {
 			int[] xPositions = { 600, 800, 1000, 1200 };
 			int[] yPositions = { 5, 200, 100, 150 };
