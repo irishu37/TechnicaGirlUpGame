@@ -52,9 +52,16 @@ public class MainGUI extends Application {
 			currentScene = runMenu();
 		} else if(state == STATE.MIDDLE) {
 			currentScene = runMiddle();
+		} else if(state == STATE.END) {
+			currentScene = runEnd();
 		}
 		
 		primaryStage.setScene(currentScene);
+	}
+	
+	private Scene runEnd() {
+		endScreen ed = new endScreen();
+		return new Scene(ed, WIDTH, HEIGHT);
 	}
 	
 	private Scene runMiddle() {
