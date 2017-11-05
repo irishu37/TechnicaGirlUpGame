@@ -26,7 +26,7 @@ import javafx.geometry.Pos;
 public class MainGUI extends Application {
 
 	private static boolean freeze;
-	private int questionNum = 1,speed = 5,yPosition = 200,totalObstacles = 12;
+	private int questionNum = 1,speed = 5,yPosition = 200,totalObstacles = 12,cloudSpeed =3;
 	final static int WIDTH = 600;
 	final static int HEIGHT = 400;
 	private Stage primaryStage;
@@ -123,6 +123,7 @@ public class MainGUI extends Application {
 		Image[] personAnimation = new Image[2];
 		if(state == STATE.WALKINGGAME) {
 			speed = 5;
+			cloudSpeed = 3;
 			yPosition = 200;
 			totalObstacles = 12;
 			personAnimation[0] = new Image("Images/girl1.png", 100, 150, true, true);
@@ -131,6 +132,7 @@ public class MainGUI extends Application {
 			speed = 2;
 			yPosition = 210;
 			totalObstacles = 5;
+			cloudSpeed = 6;
 			questionNum = 12; 
 			personAnimation[0] = new Image("Images/girlBike1.png", 100, 150, true, true);
 			personAnimation[1] = new Image("Images/girlBike2.png", 100, 150, true, true);
@@ -184,7 +186,7 @@ public class MainGUI extends Application {
 				}
 
 				for (int i = 0; i < xPositions.length; i++) {
-					xPositions[i] -= 3; // determines speed of clouds
+					xPositions[i] -= cloudSpeed; // determines speed of clouds
 
 					if (xPositions[i] <= -200) {
 						xPositions[i] = 600;
