@@ -28,13 +28,8 @@ public class middleScreen extends Pane {
 		l.relocate(50, 50);
 		l.setFill(Color.LIGHTPINK);
 		l.setWrappingWidth(500);
-<<<<<<< HEAD
-		l.setFont(new Font("Berlin Sans FB", 30));
-		l.setTextAlignment(TextAlignment.CENTER);
-=======
 		l.setFont(new Font("Berlin Sans FB", 20));
-		l.setTextAlignment(TextAlignment.CENTER); 
->>>>>>> 0054a634c64ff651709445ce26c8c70bce5e5c2a
+		l.setTextAlignment(TextAlignment.CENTER);
 		
 		Image girl = new Image("Images/girlHappy.png");
 		ImageView iv = new ImageView();
