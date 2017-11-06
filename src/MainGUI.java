@@ -37,7 +37,7 @@ public class MainGUI extends Application {
 		MENU, WALKINGGAME, BIKINGGAME, MIDDLE, END
 	};
 
-	private STATE state = STATE.MENU;
+	private STATE state = STATE.END;
 
 	private void setState(STATE newState) {
 		state = newState;
